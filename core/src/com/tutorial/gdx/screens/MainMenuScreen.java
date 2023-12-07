@@ -19,22 +19,21 @@ public class MainMenuScreen implements Screen {
     private static final int LOGO_HEIGHT = 250;
     private static final int LOGO_Y = 450;
 
-    final SpaceGame GAME;
-
-    Texture playButtonActive;
-    Texture playButtonInactive;
-    Texture exitButtonActive;
-    Texture exitButtonInactive;
-    Texture logo;
+    private final SpaceGame GAME;
+    private final Texture PLAY_BUTTON_ACTIVE;
+    private final Texture PLAY_BUTTON_INACTIVE;
+    private final Texture EXIT_BUTTON_ACTIVE;
+    private final Texture EXIT_BUTTON_INACTIVE;
+    private final Texture LOGO;
 
     public MainMenuScreen(final SpaceGame GAME) {
         this.GAME = GAME;
 
-        playButtonActive = new Texture("play_button_active.png");
-        playButtonInactive = new Texture("play_button_inactive.png");
-        exitButtonActive = new Texture("exit_button_active.png");
-        exitButtonInactive = new Texture("exit_button_inactive.png");
-        logo = new Texture("logo.png");
+        PLAY_BUTTON_ACTIVE = new Texture("play_button_active.png");
+        PLAY_BUTTON_INACTIVE = new Texture("play_button_inactive.png");
+        EXIT_BUTTON_ACTIVE = new Texture("exit_button_active.png");
+        EXIT_BUTTON_INACTIVE = new Texture("exit_button_inactive.png");
+        LOGO = new Texture("logo.png");
 
         GAME.scrollingBackground.setSpeedFixed(true);
         GAME.scrollingBackground.setSpeed(ScrollingBackground.DEFAULT_SPEED);
@@ -45,7 +44,6 @@ public class MainMenuScreen implements Screen {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 int x = SpaceGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2;
-
                 if (    GAME.camera.getInputInGameWorld().x < x + EXIT_BUTTON_WIDTH &&
                         GAME.camera.getInputInGameWorld().x > x &&
                         SpaceGame.HEIGHT - GAME.camera.getInputInGameWorld().y < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT &&
@@ -77,6 +75,7 @@ public class MainMenuScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.15f, 0.15f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         GAME.batch.begin();
 
         GAME.scrollingBackground.updateAndRender(delta, GAME.batch);
@@ -86,20 +85,20 @@ public class MainMenuScreen implements Screen {
                 GAME.camera.getInputInGameWorld().x > x &&
                 SpaceGame.HEIGHT - GAME.camera.getInputInGameWorld().y < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT &&
                 SpaceGame.HEIGHT - GAME.camera.getInputInGameWorld().y > EXIT_BUTTON_Y)
-            GAME.batch.draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+            GAME.batch.draw(EXIT_BUTTON_ACTIVE, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
         else
-            GAME.batch.draw(exitButtonInactive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+            GAME.batch.draw(EXIT_BUTTON_INACTIVE, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 
         x = SpaceGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2;
         if (    GAME.camera.getInputInGameWorld().x < x + PLAY_BUTTON_WIDTH &&
                 GAME.camera.getInputInGameWorld().x > x &&
                 SpaceGame.HEIGHT - GAME.camera.getInputInGameWorld().y < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT &&
                 SpaceGame.HEIGHT - GAME.camera.getInputInGameWorld().y > PLAY_BUTTON_Y)
-            GAME.batch.draw(playButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+            GAME.batch.draw(PLAY_BUTTON_ACTIVE, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
         else
-            GAME.batch.draw(playButtonInactive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+            GAME.batch.draw(PLAY_BUTTON_INACTIVE, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 
-        GAME.batch.draw(logo, SpaceGame.WIDTH / 2f - LOGO_WIDTH / 2f, LOGO_Y, LOGO_WIDTH, LOGO_HEIGHT);
+        GAME.batch.draw(LOGO, SpaceGame.WIDTH / 2f - LOGO_WIDTH / 2f, LOGO_Y, LOGO_WIDTH, LOGO_HEIGHT);
 
         GAME.batch.end();
     }
